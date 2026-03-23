@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flores amarillas</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(165deg, #87ceeb 0%, #e8f4fc 35%, #fff9e6 70%, #ffeaa7 100%);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow-x: hidden;
+    }
+
+    .message {
+      max-width: 36rem;
+      text-align: center;
+      font-size: clamp(1rem, 3.5vw, 1.35rem);
+      line-height: 1.65;
+      color: #2c1810;
+      letter-spacing: 0.03em;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+      margin-bottom: 3rem;
+      padding: 1.5rem 1.75rem;
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .bouquet {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: clamp(0.5rem, 4vw, 2.5rem);
+      flex-wrap: wrap;
+    }
+
+    .stem-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: sway 4s ease-in-out infinite;
+    }
+
+    .stem-wrap:nth-child(1) { animation-delay: 0s; }
+    .stem-wrap:nth-child(2) { animation-delay: 0.4s; }
+    .stem-wrap:nth-child(3) { animation-delay: 0.8s; }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-2deg) translateY(0); }
+      50% { transform: rotate(2deg) translateY(-4px); }
+    }
+
+    .flower {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      margin-bottom: -8px;
+    }
+
+    .flower.small {
+      width: 100px;
+      height: 100px;
+      transform: scale(0.85);
+    }
+
+    .flower.large {
+      width: 170px;
+      height: 170px;
+    }
+
+    .petals {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .petal {
+      position: absolute;
+      width: 28%;
+      height: 48%;
+      left: 50%;
+      top: 50%;
+      margin-left: -14%;
+      margin-top: -48%;
+      background: linear-gradient(180deg, #fff176 0%, #fdd835 40%, #f9a825 100%);
+      border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+      transform-origin: 50% 100%;
+      box-shadow: inset 0 -6px 12px rgba(255, 193, 7, 0.35);
+    }
+
+    .flower.small .petal {
+      width: 30%;
+      height: 50%;
+      margin-left: -15%;
+      margin-top: -50%;
+    }
+
+    .flower.large .petal {
+      width: 26%;
+      height: 46%;
+      margin-left: -13%;
+      margin-top: -46%;
+    }
+
+    .petal:nth-child(1)  { transform: rotate(0deg)   translateY(-8%); }
+    .petal:nth-child(2)  { transform: rotate(30deg)  translateY(-8%); }
+    .petal:nth-child(3)  { transform: rotate(60deg)  translateY(-8%); }
+    .petal:nth-child(4)  { transform: rotate(90deg)  translateY(-8%); }
+    .petal:nth-child(5)  { transform: rotate(120deg) translateY(-8%); }
+    .petal:nth-child(6)  { transform: rotate(150deg) translateY(-8%); }
+    .petal:nth-child(7)  { transform: rotate(180deg) translateY(-8%); }
+    .petal:nth-child(8)  { transform: rotate(210deg) translateY(-8%); }
+    .petal:nth-child(9)  { transform: rotate(240deg) translateY(-8%); }
+    .petal:nth-child(10) { transform: rotate(270deg) translateY(-8%); }
+    .petal:nth-child(11) { transform: rotate(300deg) translateY(-8%); }
+    .petal:nth-child(12) { transform: rotate(330deg) translateY(-8%); }
+
+    .center-disk {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 32%;
+      height: 32%;
+      margin: -16% 0 0 -16%;
+      background: radial-gradient(circle at 35% 35%, #8d6e63 0%, #5d4037 50%, #3e2723 100%);
+      border-radius: 50%;
+      box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.35),
+        0 2px 6px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+    }
+
+    .center-disk::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      background: repeating-conic-gradient(
+        from 0deg,
+        #4e342e 0deg 8deg,
+        #6d4c41 8deg 16deg
+      );
+      opacity: 0.85;
+    }
+
+    .stem {
+      width: 8px;
+      height: clamp(100px, 22vh, 160px);
+      background: linear-gradient(90deg, #2e7d32 0%, #43a047 45%, #1b5e20 100%);
+      border-radius: 4px;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.12);
+    }
+
+    .leaf {
+      position: relative;
+      width: 48px;
+      height: 28px;
+      background: linear-gradient(135deg, #66bb6a 0%, #2e7d32 100%);
+      border-radius: 0 100% 0 100%;
+      margin-top: -20px;
+      margin-left: 28px;
+      box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .stem-wrap:nth-child(1) .leaf { margin-left: -36px; transform: scaleX(-1); }
+    .stem-wrap:nth-child(3) .leaf { margin-left: 32px; }
+
+    .sparkles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    .sparkle:nth-child(1)  { left: 8%;  top: 12%; animation-delay: 0s; }
+    .sparkle:nth-child(2)  { left: 22%; top: 28%; animation-delay: 0.5s; }
+    .sparkle:nth-child(3)  { left: 88%; top: 18%; animation-delay: 1s; }
+    .sparkle:nth-child(4)  { left: 72%; top: 42%; animation-delay: 0.3s; }
+    .sparkle:nth-child(5)  { left: 15%; top: 72%; animation-delay: 1.2s; }
+    .sparkle:nth-child(6)  { left: 50%; top: 8%;  animation-delay: 0.8s; }
+    .sparkle:nth-child(7)  { left: 92%; top: 65%; animation-delay: 0.2s; }
+    .sparkle:nth-child(8)  { left: 40%; top: 88%; animation-delay: 1.5s; }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.2); }
+    }
+
+    .message,
+    .bouquet {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true">
+    <span class="sparkle"></span>
+    <span class="sparkle"></span>
+    <span class="sparkle"></span>
+    <span class="sparkle"></span>
+    <span class="sparkle"></span>
+    <span class="sparkle"></span>
+    <span class="sparkle"></span>
+    <span class="sparkle"></span>
+  </div>
+
+  <p class="message">
+    PARA TI PRINCESA HERMOSA, RECUERDA QUE SIEMPRE PODRAS CONTAR CONMIGO PARA LO QUE SEA :)
+  </p>
+
+  <div class="bouquet" aria-hidden="true">
+    <div class="stem-wrap">
+      <div class="flower small">
+        <div class="petals">
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+        </div>
+        <div class="center-disk"></div>
+      </div>
+      <div class="leaf"></div>
+      <div class="stem"></div>
+    </div>
+
+    <div class="stem-wrap">
+      <div class="flower large">
+        <div class="petals">
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+        </div>
+        <div class="center-disk"></div>
+      </div>
+      <div class="stem"></div>
+    </div>
+
+    <div class="stem-wrap">
+      <div class="flower small">
+        <div class="petals">
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+          <span class="petal"></span>
+        </div>
+        <div class="center-disk"></div>
+      </div>
+      <div class="leaf"></div>
+      <div class="stem"></div>
+    </div>
+  </div>
+</body>
+</html>
